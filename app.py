@@ -30,6 +30,8 @@ def save():
     # In our response we will send a redirect to the browser.
     response = make_response(redirect(url_for('builder')))
     data = get_saved_data()
+    # Grab the items that was POSTed from the form sent by the browser,
+    # and turn them into a dict to update or add into data.
     data.update(dict(request.form.items()))
     response.set_cookie('character', json.dumps(data))
     return response
