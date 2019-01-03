@@ -5,7 +5,8 @@ from options import DEFAULTS
 
 app = Flask(__name__)
 
-# extract data from the cookies out of the current request
+# Return a Python dictionary stored in the requester's (browser) 'Character' cookie.
+# If nothing is there send an empty dictionary.
 def get_saved_data():
     try:
         data = json.loads(request.cookies.get('character'))
@@ -33,6 +34,7 @@ def save():
     # Grab the items that was POSTed from the form sent by the browser,
     # and turn them into a dict to update or add into data.
     data.update(dict(request.form.items()))
+    # Name the cookie as 'character' and load it with a JSONifed version of data.
     response.set_cookie('character', json.dumps(data))
     return response
 

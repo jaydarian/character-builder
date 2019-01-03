@@ -12,9 +12,9 @@
         <div class="grid-70">
             <div class="colors">
                 {% for color in options['colors'] %}
-                <input type="radio" id="{{ color }}" name="colors" value="{{ color }}"
-                {% if saves.get('colors') == color%}checked{% endif %}>
-                <label for="{{ color }}"></label>
+                    <input type="radio" id="{{ color }}" name="colors" value="{{ color }}"
+                        {% if saves.get('colors') == color %}checked{% endif %}>
+                    <label for="{{ color }}"></label>
                 {% endfor %}
                 <button class="btn">Update</button>
             </div>
@@ -25,6 +25,21 @@
             <div class="nose"><img src="/static/img/bear_nose.svg" /></div>
         </div>
         <div class="items">
+            {% for category, choices in options.items() if category != 'colors' %}
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p class="category-title">{{ category.title() }}</p>
+                </div>
+                <div class="grid-80">
+                    <input type="radio" id="no_{{ category }}_icon" name="{{ category }}" value='' {% if not saves.get(category) %}checked{% endif %}>
+                    <label for="no_{{ category }}_icon"><img src="/static/img/no-selection.svg"></label>
+                    {% for choice in choices %}
+                    <input type="radio" id="{{ category }}-{{ choice }}_icon" name="{{ category }}" value="{{ choice }}" {% if saves.get(category) == choice %}checked{% endif %}>
+                    <label for="{{ category }}-{{ choice }}_icon"><img src="/static/img/{{ category }}-{{ choice }}.svg"></label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </form>
