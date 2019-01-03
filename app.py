@@ -27,8 +27,7 @@ def builder():
 
 @app.route('/save', methods=['POST'])
 def save():
-    # Instead of returning this response directly to our users,
-    # we will load it into a variable so that we can make some more additions to it.
+    # In our response we will send a redirect to the browser.
     response = make_response(redirect(url_for('builder')))
     data = get_saved_data()
     data.update(dict(request.form.items()))
