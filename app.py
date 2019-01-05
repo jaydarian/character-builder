@@ -1,9 +1,11 @@
 import json
 from flask import (Flask, render_template, redirect,
-                   url_for, request, make_response)
+                   url_for, request, make_response,
+                   flash)
 from options import DEFAULTS
 
 app = Flask(__name__)
+app.secret_key = '1s2d3vv5g6h67yrwexcvb'
 
 # Return a Python dictionary stored in the requester's (browser) 'Character' cookie.
 # If nothing is there send an empty dictionary.
@@ -28,6 +30,7 @@ def builder():
 
 @app.route('/save', methods=['POST'])
 def save():
+    flash("Alright! That look's nice :)")
     # In our response we will send a redirect to the browser.
     response = make_response(redirect(url_for('builder')))
     data = get_saved_data()
